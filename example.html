@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Kooomo SDK Example</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        section { margin-bottom: 30px; }
+        label { display: block; margin: 5px 0 2px; }
+        input, button { margin-bottom: 10px; padding: 5px; }
+        iframe { width: 100%; height: 500px; border: 1px solid #ccc; margin-top: 10px; }
+        .output { background: #f4f4f4; padding: 10px; margin-top: 10px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+<script src="kooomo-sdk.js"></script>
+
+<script>
+    const sdk = new KooomoSDK({
+        apiKey: 'YOUR-API-KEY-HERE',
+        baseUrl: 'https://your-store-domain-here.com'
+    });
+
+    function logOutput(id, data) {
+        document.getElementById(id).textContent = JSON.stringify(data, null, 2);
+    }
+</script>
+
+<h1>Kooomo StoreFront SDK Example</h1>
+
+<section>
+    <h3>Create Session</h3>
+    <label>Country</label><input type="text" id="createSessionCountry" value="GB">
+    <button onclick="sdk.createSession({
+        country: document.getElementById('createSessionCountry').value,
+    }).then(() => alert('Session created'))">Create Session</button>
+</section>
+
+<section>
+    <h3>Add to Cart</h3>
+    <label>Product Code</label><input type="text" id="prodCode" value="DEMO1">
+    <label>SKU Code</label><input type="text" id="skuCode" value="0">
+    <label>Quantity</label><input type="number" id="quantity" value="1">
+    <button onclick="sdk.addToCart({sessionToken: sdk.getSessionToken(), products: [{
+      product_code: document.getElementById('prodCode').value,
+      sku_code: document.getElementById('skuCode').value,
+      quantity: parseInt(document.getElementById('quantity').value)
+    }]}).then(() => alert('Added to cart'))">Add to Cart</button>
+</section>
+
+<section>
+    <h3>Get Cart</h3>
+    <label>Country</label><input type="text" id="getCartCountry" value="GB">
+    <label>Language</label><input type="text" id="getCartLanguage" value="EN">
+    <button onclick="sdk.getCart({
+        sessionToken: sdk.getSessionToken(),
+        language: document.getElementById('getCartLanguage').value,
+        country: document.getElementById('getCartCountry').value,
+    }).then(data => logOutput('cartOutput', data))">Print Cart</button>
+    <div id="cartOutput" class="output"></div>
+</section>
+
+<section>
+    <button onclick="logOutput('checkoutUrlOutput', sdk.getCheckoutUrl(sdk.getSessionToken()))">Get Checkout URL</button>
+    <div id="checkoutUrlOutput" class="output"></div>
+</section>
+
+<section>
+    <button onclick="document.getElementById('checkoutFrame').src = sdk.getCheckoutUrl(sdk.getSessionToken())">Open Checkout in Iframe</button>
+    <iframe id="checkoutFrame"></iframe>
+</section>
+
+<section>
+    <button onclick="sdk.redirectToCheckout(sdk.getSessionToken())">Redirect to Checkout</button>
+</section>
+
+<section>
+    <h3>Get Product Details</h3>
+    <label>Product Code</label><input type="text" id="detailProductCode" value="DEMO1">
+    <label>Sku Code</label><input type="text" id="detailSkuCode" value="">
+    <label>Language</label><input type="text" id="detailLanguage" value="EN">
+    <label>Country</label><input type="text" id="detailCountry" value="GB">
+    <button onclick="sdk.getProductDetails(document.getElementById('detailProductCode').value, {
+        sku_code: document.getElementById('detailSkuCode').value,
+        country: document.getElementById('detailCountry').value,
+        language: document.getElementById('detailLanguage').value,
+    }).then(data => logOutput('productDetailsOutput', data))">Get Product Details</button>
+    <div id="productDetailsOutput" class="output"></div>
+</section>
+
+<section>
+    <h3>Get Product Availability</h3>
+    <label>Product Code</label><input type="text" id="availabilityProductCode" value="DEMO1">
+    <label>SKU Code</label><input type="text" id="skuAvailability">
+    <label>Country ISO 2 Code</label><input type="text" id="countryAvailability" value="GB">
+    <button onclick="sdk.getProductAvailability(document.getElementById('availabilityProductCode').value, {
+        country: document.getElementById('countryAvailability').value,
+        sku_code: document.getElementById('skuAvailability').value,
+    }).then(data => logOutput('productAvailabilityOutput', data))">Get Product Availability</button>
+    <div id="productAvailabilityOutput" class="output"></div>
+</section>
+
+<section>
+    <h3>Get Product Price</h3>
+    <label>Product Code</label><input type="text" id="priceProductCode" value="DEMO1">
+    <label>SKU Code</label><input type="text" id="skuPrice">
+    <label>Country ISO 2 Code</label><input type="text" id="countryPrice" value="GB">
+    <button onclick="sdk.getProductPrice(document.getElementById('priceProductCode').value, {
+        country: document.getElementById('countryPrice').value,
+        sku_code: document.getElementById('skuPrice').value,
+    }).then(data => logOutput('productPriceOutput', data))">Get Product Price</button>
+    <div id="productPriceOutput" class="output"></div>
+</section>
+
+</body>
+</html>

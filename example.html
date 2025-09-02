@@ -115,5 +115,86 @@
     <div id="productPriceOutput" class="output"></div>
 </section>
 
+<section>
+    <h3>Login User</h3>
+    <label>Email</label><input type="email" id="loginUserEmail">
+    <label>Password</label><input type="password" id="loginUserPassword">
+    <button onclick="sdk.login(
+        getElementById('loginUserEmail').value,
+        getElementById('loginUserPassword').value,
+    ).then(data => logOutput('loginOutput', data))">Login</button>
+    <div id="loginOutput" class="output"></div>
+</section>
+
+<section>
+    <h3>Register User</h3>
+    <label>Email</label><input type="email" id="registerUserEmail">
+    <label>Password</label><input type="password" id="registerUserPassword">
+    <label>First Name</label><input type="text" id="registerUserFirstName">
+    <label>Last Name</label><input type="text" id="registerUserLastName">
+    <label>Country</label><input type="text" id="registerUserCountry">
+    <label>Gender</label><input type="text" id="registerUserGender">
+    <label>Profession</label><input type="text" id="registerUserProfession">
+    <label>Date of Birth</label><input type="date" id="registerUserDOB">
+    <label>Privacy Profiling</label><input type="checkbox" id="registerUserPrivacyProfiling">
+    <label>Privacy Marketing</label><input type="checkbox" id="registerUserPrivacyMarketing">
+    <label>Privacy Fidelity</label><input type="checkbox" id="registerUserPrivacyFidelity">
+    <label>Shipping Address Line 1</label><input type="text" id="registerUserAddress1">
+    <label>Shipping Address Line 2</label><input type="text" id="registerUserAddress2">
+    <label>Shipping Address Line 3</label><input type="text" id="registerUserAddress3">
+    <label>City</label><input type="text" id="registerUserCity">
+    <label>State</label><input type="text" id="registerUserState">
+    <label>Telephone</label><input type="text" id="registerUserTelephone">
+    <label>Postcode</label><input type="text" id="registerUserPostcode">
+    <label>Barcode</label><input type="text" id="registerUserBarcode">
+    <label>Origin</label><input type="text" id="registerUserOrigin">
+    <label>Custom Fields (JSON)</label><textarea id="registerUserCustomFields"></textarea>
+    <button onclick="sdk.registerUser({
+        username: document.getElementById('registerUserEmail').value,
+        password: document.getElementById('registerUserPassword').value,
+        first_name: document.getElementById('registerUserFirstName').value,
+        last_name: document.getElementById('registerUserLastName').value,
+        country: document.getElementById('registerUserCountry').value,
+        gender: document.getElementById('registerUserGender').value,
+        profession: document.getElementById('registerUserProfession').value,
+        date_of_birth: document.getElementById('registerUserDOB').value,
+        privacy_profiling: document.getElementById('registerUserPrivacyProfiling').checked,
+        privacy_marketing: document.getElementById('registerUserPrivacyMarketing').checked,
+        privacy_fildelity: document.getElementById('registerUserPrivacyFidelity').checked,
+        shipping_address: {
+            address_1: document.getElementById('registerUserAddress1').value,
+            address_2: document.getElementById('registerUserAddress2').value,
+            address_3: document.getElementById('registerUserAddress3').value,
+            city: document.getElementById('registerUserCity').value,
+            state: document.getElementById('registerUserState').value,
+            telephone: document.getElementById('registerUserTelephone').value,
+            postcode: document.getElementById('registerUserPostcode').value,
+        },
+        barcode: document.getElementById('registerUserBarcode').value,
+        origin: document.getElementById('registerUserOrigin').value,
+        custom_fields: JSON.parse(document.getElementById('registerUserCustomFields').value || '{}'),
+    }).then(data => logOutput('registerOutput', data))">Register</button>
+    <div id="registerOutput" class="output"></div>
+</section>
+
+<section>
+    <h3>Recover Password</h3>
+    <label>Email</label><input type="email" id="recoverPasswordEmail">
+    <button onclick="sdk.recoverPassword(
+        document.getElementById('recoverPasswordEmail').value
+    ).then(() => alert('Password recovery email sent')).catch(err => alert(err.message))">Recover Password</button>
+</section>
+
+<section>
+    <h3>Reset Password</h3>
+    <label>Email</label><input type="email" id="resetPasswordEmail">
+    <label>Code</label><input type="text" id="resetPasswordCode">
+    <label>New Password</label><input type="password" id="resetPasswordNewPassword">
+    <button onclick="sdk.resetPassword(
+        document.getElementById('resetPasswordEmail').value,
+        document.getElementById('resetPasswordCode').value,
+        document.getElementById('resetPasswordNewPassword').value
+    ).then(() => alert('Password reset successfully')).catch(err => alert(err.message))">Reset Password</button>
+</section>
 </body>
 </html>

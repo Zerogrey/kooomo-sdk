@@ -165,6 +165,67 @@ Redirect the browser to the checkout page:
 sdk.redirectToCheckout('optional-session-token');
 ```
 
+### User
+
+#### Login
+
+Authenticate a user:
+
+```javascript
+sdk.login('username', 'password');
+```
+
+#### Register
+
+Register a user:
+
+```javascript
+sdk.registerUser({
+  "email": 'some-new-user@email.com',
+  "password": 'some_password',
+  "first_name": "Enrique",
+  "last_name": "Suarez",
+  "shipping_address": {
+    "address_1": "Building, apt 1",
+    "address_2": "Sample Street",
+    "address_3": "Avenue Av.",
+    "country": "IE",
+    "state": "D",
+    "city": "Dublin",
+    "telephone": "0831234567",
+    "post_code": "D1"
+  },
+  "country": "IE",
+  "gender": "M",
+  "profession": "Software Developer",
+  "privacy_profiling": false,
+  "privacy_marketing": false,
+  "privacy_fildelity": false,
+  "date_of_birth": "2020-01-01",
+  "barcode": "",
+  "origin": "",
+  "custom_fields": {
+    "customFieldName": "6"
+  }
+});
+```
+
+#### Recover Password
+
+Recover a password:
+
+```javascript
+const recoverCodes = sdk.recoverPassword('some-new-user@email.com');
+```
+
+#### Reset Password
+
+Reset a password:
+
+```javascript
+sdk.resetPassword('some-new-user@email.com', 'recovery-code', 'new_password');
+```
+
 ## Examples
 
 A complete working example is provided in the `example.html` file. This example demonstrates:

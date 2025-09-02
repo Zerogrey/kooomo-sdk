@@ -284,7 +284,8 @@
         privacy_fildelity,
         date_of_birth,
         barcode,
-        origin
+        origin,
+        custom_fields
     }) {
         const url = `${this.baseUrl}/api/v0/user`;
         const payload = {
@@ -301,7 +302,8 @@
             privacy_fildelity,
             date_of_birth,
             barcode,
-            origin
+            origin,
+            custom_fields
         }
         const response = await fetch(url, {
             method: 'POST',

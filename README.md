@@ -200,7 +200,7 @@ sdk.registerUser({
   "profession": "Software Developer",
   "privacy_profiling": false,
   "privacy_marketing": false,
-  "privacy_fildelity": false,
+  "privacy_fidelity": false,
   "date_of_birth": "2020-01-01",
   "barcode": "",
   "origin": "",
@@ -236,6 +236,9 @@ A complete working example is provided in the `example.html` file. This example 
 - Getting checkout URLs
 - Displaying product information
 - Checking product availability and pricing
+- Login a user
+- Registering a user
+- Recovering and resetting a password
 
 ## Error Handling
 

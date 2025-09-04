@@ -259,10 +259,12 @@
             throw new Error('Login response did not contain session_token');
         }
         this._saveSessionToken(sessionToken);
+
+        return result;
     };
 
     KooomoSDK.prototype.registerUser = async function ({
-        username,
+        email,
         password,
         first_name,
         last_name,
@@ -274,14 +276,14 @@
             city: '',
             state: '',
             telephone: '',
-            postcode: '',
+            post_code: '',
         },
         country,
         gender,
         profession,
         privacy_profiling,
         privacy_marketing,
-        privacy_fildelity,
+        privacy_fidelity,
         date_of_birth,
         barcode,
         origin,
@@ -289,7 +291,7 @@
     }) {
         const url = `${this.baseUrl}/api/v0/user`;
         const payload = {
-            username,
+            email,
             password,
             first_name,
             last_name,
@@ -299,7 +301,7 @@
             profession,
             privacy_profiling,
             privacy_marketing,
-            privacy_fildelity,
+            privacy_fidelity,
             date_of_birth,
             barcode,
             origin,
@@ -318,6 +320,17 @@
             const errorBody = await response.text();
             throw new Error(`Failed to register user: ${response.status} - ${errorBody}`);
         }
+
+        return await response.json();
+    };
+
+    KooomoSDK.prototype.getOrdersUrl = function (sessionToken) {
+        const token = sessionToken || this.getSessionToken();
+        if (!token) {
+            throw new Error('KooomoSDK getOrdersUrl: No sessionToken available.');
+        }
+
+        return `${this.baseUrl}/eshop/cart/action/checkoutByToken/?token=${encodeURIComponent(token)}&redir=order`;
     };
 
     KooomoSDK.prototype.recoverPassword = async function (email) {
@@ -335,6 +348,8 @@
             const errorBody = await response.text();
             throw new Error(`Failed to recover password: ${response.status} - ${errorBody}`);
         }
+
+        return await response.json();
     };
 
     KooomoSDK.prototype.resetPassword = async function (email, code, newPassword) {
@@ -352,6 +367,8 @@
             const errorBody = await response.text();
             throw new Error(`Failed to reset password: ${response.status} - ${errorBody}`);
         }
+
+        return await response.json();
     }
 
     // Expose it to the global scope

@@ -371,6 +371,42 @@
         return await response.json();
     }
 
+    KooomoSDK.prototype.getCountries = async function () {
+        const url = `${this.baseUrl}/api/v0/storeFront/country`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Kooomo-Api-Key': this.apiKey,
+            },
+        });
+
+        if (!response.ok) {
+            const errorBody = await response.text();
+            throw new Error(`Failed to get countries: ${response.status} - ${errorBody}`);
+        }
+
+        return await response.json();
+    }
+
+    KooomoSDK.prototype.getStates = async function (country) {
+        const url = `${this.baseUrl}/api/v0/storeFront/country/states/${encodeURIComponent(country)}`;
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Kooomo-Api-Key': this.apiKey,
+            },
+        });
+
+        if (!response.ok) {
+            const errorBody = await response.text();
+            throw new Error(`Failed to get states: ${response.status} - ${errorBody}`);
+        }
+
+        return await response.json();
+    }
+
     // Expose it to the global scope
     global.KooomoSDK = KooomoSDK;
 })(window);

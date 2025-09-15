@@ -259,6 +259,24 @@
                 </section>
 
                 <section>
+                    <h3>Get Countries</h3>
+                    <button onclick="sdk.getCountries()
+                    .then(data => logOutput('countriesOutput', data), data => logError('countriesOutput', data))">Get Countries
+                    </button>
+                    <div id="countriesOutput" class="output"></div>
+                </section>
+
+                <section>
+                    <h3>Get States</h3>
+                    <label>Country</label><input type="text" id="country">
+                    <button onclick="sdk.getStates(
+                        getElementById('country').value,
+                    ).then(data => logOutput('stateOutput', data), data => logError('stateOutput', data))">Get States
+                    </button>
+                    <div id="stateOutput" class="output"></div>
+                </section>
+
+                <section>
                     <h3>Recover Password</h3>
                     <label>Email</label><input type="email" id="recoverPasswordEmail">
                     <button onclick="sdk.recoverPassword(

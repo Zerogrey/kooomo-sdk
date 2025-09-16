@@ -79,8 +79,9 @@
                     <label>Country</label><input type="text" id="createSessionCountry" value="GB">
                     <button onclick="sdk.createSession({
                         country: document.getElementById('createSessionCountry').value,
-                    }).then(() => alert('Session created'))">Create Session
+                    }).then(data => logOutput('createSessionOuput', data), data => logError('createSessionOuput', data))">Create Session
                     </button>
+                    <div id="createSessionOuput" class="output"></div>
                 </section>
             </div>
         </div>
@@ -103,8 +104,9 @@
                       product_code: document.getElementById('prodCode').value,
                       sku_code: document.getElementById('skuCode').value,
                       quantity: parseInt(document.getElementById('quantity').value)
-                    }]}).then(() => alert('Added to cart'))">Add to Cart
+                    }]}).then(data => logOutput('addToCartOutput', data), data => logError('addToCartOutput', data))">Create Session
                     </button>
+                    <div id="addToCartOutput" class="output"></div>
                 </section>
 
                 <section>
@@ -281,8 +283,9 @@
                     <label>Email</label><input type="email" id="recoverPasswordEmail">
                     <button onclick="sdk.recoverPassword(
                         document.getElementById('recoverPasswordEmail').value
-                    ).then(() => alert('Password recovery email sent')).catch(err => alert(err.message))">Recover Password
+                    ).then(data => logOutput('recoverOutput', data), data => logError('recoverOutput', data))">Recover Password
                     </button>
+                    <div id="recoverOutput" class="output"></div>
                 </section>
 
                 <section>
@@ -294,8 +297,9 @@
                         document.getElementById('resetPasswordEmail').value,
                         document.getElementById('resetPasswordCode').value,
                         document.getElementById('resetPasswordNewPassword').value
-                    ).then(() => alert('Password reset successfully')).catch(err => alert(err.message))">Reset Password
+                    ).then(data => logOutput('resetOutput', data), data => logError('resetOutput', data))">Reset Password
                     </button>
+                    <div id="resetOutput" class="output"></div>
                 </section>
             </div>
         </div>

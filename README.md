@@ -19,7 +19,7 @@ A JavaScript client for interacting with the Kooomo e-commerce platform API.
 Include the SDK in your HTML:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/zerogrey/kooomo-sdk@0.1.1/kooomo-sdk.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/zerogrey/kooomo-sdk@0.1.2/kooomo-sdk.js"></script>
 ```
 
 ## Initialization

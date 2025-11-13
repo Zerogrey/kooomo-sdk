@@ -333,6 +333,15 @@
         return `${this.baseUrl}/eshop/cart/action/checkoutByToken/?token=${encodeURIComponent(token)}&redir=order`;
     };
 
+    KooomoSDK.prototype.getAccountUrl = function (sessionToken) {
+        const token = sessionToken || this.getSessionToken();
+        if (!token) {
+            throw new Error('KooomoSDK getAccountUrl: No sessionToken available.');
+        }
+
+        return `${this.baseUrl}/eshop/cart/action/checkoutByToken/?token=${encodeURIComponent(token)}&redir=account`;
+    };
+
     KooomoSDK.prototype.recoverPassword = async function (email) {
         const url = `${this.baseUrl}/api/v0/user/recoverPassword`;
         const response = await fetch(url, {

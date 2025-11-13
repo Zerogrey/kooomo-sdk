@@ -261,6 +261,13 @@
                 </section>
 
                 <section>
+                    <button onclick="document.getElementById('accountFrame').src = sdk.getAccountUrl(sdk.getSessionToken())">
+                        List my account in Iframe
+                    </button>
+                    <iframe id="accountFrame"></iframe>
+                </section>
+
+                <section>
                     <h3>Get Countries</h3>
                     <button onclick="sdk.getCountries()
                     .then(data => logOutput('countriesOutput', data), data => logError('countriesOutput', data))">Get Countries
